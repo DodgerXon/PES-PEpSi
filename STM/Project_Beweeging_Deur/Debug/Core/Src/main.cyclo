@@ -1,0 +1,9 @@
+../Core/Src/main.c:81:5:main	4
+../Core/Src/main.c:162:6:SystemClock_Config	4
+../Core/Src/main.c:223:13:MX_I2C1_Init	4
+../Core/Src/main.c:271:13:MX_TIM2_Init	6
+../Core/Src/main.c:330:13:MX_USART2_UART_Init	2
+../Core/Src/main.c:363:13:MX_DMA_Init	1
+../Core/Src/main.c:384:13:MX_GPIO_Init	1
+../Core/Src/main.c:423:6:HAL_I2C_SlaveRxCpltCallback	5
+../Core/Src/main.c:458:6:Error_Handler	1

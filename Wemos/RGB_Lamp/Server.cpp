@@ -36,6 +36,7 @@ void WemosServer::verbindenWifi() {
     WiFi.begin(ssid, passwordInput(password));
 
     while (WiFi.status() != WL_CONNECTED) {
+        delay(200);
         Serial.print(".");
     }
     Serial.println("");
@@ -73,7 +74,7 @@ String WemosServer::receivedMsg() {
     String received = client.readStringUntil('\r');
     //Serial.print("Server:");
     //Serial.println(received);
-    client.flush();
     return received;
+    client.flush();
 
 }
