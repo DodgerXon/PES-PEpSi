@@ -36,12 +36,15 @@ void setup(void)
 
 void loop(void)
 {
-  char buf[20]; // Allocate a character array to store the converted string
-  wServer.startServer();
-  String received = wServer.receivedMsg();
-  received.toCharArray(buf, sizeof(buf)); // Convert the string to a character array
+  char buf[20]; 
+  if(wServer.startServer()) {
+    String received = wServer.receivedMsg();
+    received.toCharArray(buf, received.length()); // Convert the string to a character array
+    buf[received.length()] = '\0';
+  }
 
   if (P.displayAnimate()) {
+    //er kunnen maximaal 12 characters in de buffer voordat hij dood gaat
     P.displayText(buf, PA_LEFT, 30, 0, PA_SCROLL_LEFT, PA_SCROLL_LEFT); // Use the character array
   }
 }

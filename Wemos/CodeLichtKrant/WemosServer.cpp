@@ -49,28 +49,20 @@ void WemosServer::verbindenWifi() {
     Serial.println(WiFi.localIP());
 }
 
-void WemosServer::startServer() {
-
+bool WemosServer::startServer() {
   client = server.available();
 
     // Check if a client has connected
     if (!client) {
-        return;
+        return false;
     }
-
-    // Wait until the client sends some data
     Serial.println("new client");
-    while(!client.available()){
-        delay(1);
-    }
+    return true;
 }
 
 String WemosServer::receivedMsg() {
-
     // Read the request
     String received = client.readStringUntil('\r');
-    //Serial.print("Server:");
-    //Serial.println(received);
     client.flush();
     return received;
 }
