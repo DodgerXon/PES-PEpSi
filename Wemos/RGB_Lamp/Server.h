@@ -8,7 +8,7 @@ using namespace std;
 class WemosServer {
 public:
     WemosServer();
-    //~WemosServer();
+    ~WemosServer();
     void verbindenWifi();
     void startServer();
     String receivedMsg();

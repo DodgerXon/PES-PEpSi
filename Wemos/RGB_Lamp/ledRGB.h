@@ -1,19 +1,30 @@
-// #ifndef LEDRGB_H
-// #define LEDRGB_H
+#ifndef LEDRGB_H
+#define LEDRGB_H
 
-// using namespace std;
+#include <Arduino.h>
 
-// class LedRGB {
-// public:
-//     LedRGB(int,int,int);
-//     //~WemosServer();
-//     void zetLedAan(int,int,int);
+const int ledR = 12; // D6
+const int ledG = 13; // D7
+const int ledB = 15; // D8
+const int ledPowerPin = 0;  // D3
 
-// private:
-//   int red;
-//   int green;
-//   int blue;
-//   int rgb[3];
-// };
+using namespace std;
 
-// #endif
+class LedRGB {
+public:
+  LedRGB(int,int,int);
+  ~LedRGB();
+  void zetAan();
+  void zetUit();
+
+private:
+  int red;
+  int green;
+  int blue;
+  int redPrev;
+  int greenPrev;
+  int bluePrev;
+  bool ledTurnedOn;
+};
+
+#endif

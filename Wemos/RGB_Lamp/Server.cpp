@@ -7,7 +7,7 @@ WiFiClient client;
 
 WemosServer::WemosServer() {
 }
-//WemosServer::~WemosServer() {}
+WemosServer::~WemosServer() {}
 
 char* passwordInput(char* password) {
     Serial.println("Enter WiFi Password:");
@@ -27,7 +27,7 @@ char* passwordInput(char* password) {
 void WemosServer::verbindenWifi() {
 
   const char* ssid = "NSELab";
-  char password[20] = {"NSELab"};
+  char password[20] = {""};
 
   // Connect to WiFi network
     Serial.print("Connecting to ");
@@ -49,7 +49,6 @@ void WemosServer::verbindenWifi() {
     // Print the ESP8266's IP address
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
-
 }
 
 void WemosServer::startServer() {
@@ -70,11 +69,26 @@ void WemosServer::startServer() {
 
 String WemosServer::receivedMsg() {
 
-    // Read the request
-    String received = client.readStringUntil('\r');
+  String accumulatedData = "";
+  String received = "";
+
+  // Read the request
+  if (client.available()) {
+    accumulatedData += client.readString();
+  }
+
+  int newlineIndex = accumulatedData.indexOf('\r');
+  if (newlineIndex != -1) {
+    // Extract the message up to the newline character
+    received = accumulatedData.substring(0, newlineIndex);
+    // Remove the extracted message from accumulatedData
+    accumulatedData = accumulatedData.substring(newlineIndex + 1);
+
+    //String received = client.readStringUntil('\r');
     //Serial.print("Server:");
     //Serial.println(received);
-    return received;
-    client.flush();
+  }
 
+  client.flush();
+  return received;
 }
