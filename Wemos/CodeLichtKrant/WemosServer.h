@@ -10,6 +10,7 @@ public:
     WemosServer();
     //~WemosServer();
     void verbindenWifi();
+    void sendMsg(String);
     bool startServer();
     String receivedMsg();
 

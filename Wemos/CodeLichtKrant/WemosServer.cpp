@@ -49,6 +49,16 @@ void WemosServer::verbindenWifi() {
     Serial.println(WiFi.localIP());
 }
 
+void WemosServer::sendMsg(String data) {
+    if (client.connected()) {
+        // Using write() to send the string
+        client.write(data.c_str(), data.length());
+        Serial.println("Message sent: " + data);
+    } else {
+        Serial.println("Error: Client not connected");
+    }
+}
+
 bool WemosServer::startServer() {
   client = server.available();
 
@@ -61,8 +71,20 @@ bool WemosServer::startServer() {
 }
 
 String WemosServer::receivedMsg() {
-    // Read the request
-    String received = client.readStringUntil('\r');
-    client.flush();
+    String received = "";
+    char ch;
+    
+    // Read available bytes
+    while (client.available()) {
+        ch = client.read();
+        if (ch == '\r') {
+            break; // Stop reading at the delimiter
+        }
+        received += ch; // Append character to the result
+    }
+
+    client.flush(); // Optional, clears the input buffer
+
     return received;
 }
+
