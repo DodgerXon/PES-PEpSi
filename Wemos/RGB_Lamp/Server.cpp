@@ -26,29 +26,34 @@ char* passwordInput(char* password) {
 
 void WemosServer::verbindenWifi() {
 
+  IPAddress local_IP(145, 52, 127, 207);
+  IPAddress gateway(145, 52, 127, 1);   // Change to your network's gateway
+  IPAddress subnet(255, 255, 255, 0);   // Change to your network's subnet mask
+
   const char* ssid = "NSELab";
   char password[20] = {""};
 
   // Connect to WiFi network
-    Serial.print("Connecting to ");
-    Serial.println(ssid);
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
 
-    WiFi.begin(ssid, passwordInput(password));
+  WiFi.config(local_IP, gateway, subnet); // Zet een vast IP adres.
+  WiFi.begin(ssid, passwordInput(password));
 
-    while (WiFi.status() != WL_CONNECTED) {
-        delay(200);
-        Serial.print(".");
-    }
-    Serial.println("");
-    Serial.println("WiFi connected");
+  while (WiFi.status() != WL_CONNECTED) {
+      delay(200);
+      Serial.print(".");
+  }
+  Serial.println("");
+  Serial.println("WiFi connected");
 
-    // Start the server
-    server.begin();
-    Serial.println("Server started");
+  // Start the server
+  server.begin();
+  Serial.println("Server started");
 
-    // Print the ESP8266's IP address
-    Serial.print("IP address: ");
-    Serial.println(WiFi.localIP());
+  // Print the ESP8266's IP address
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
 }
 
 void WemosServer::startServer() {
@@ -69,25 +74,15 @@ void WemosServer::startServer() {
 
 String WemosServer::receivedMsg() {
 
-  String accumulatedData = "";
-  String received = "";
+    // Read the request
+    String received = "";
+    if (client.available()) {
+        received = client.readStringUntil('\r');
+    } else {
+        return "";
+    }
 
-  // Read the request
-  if (client.available()) {
-    accumulatedData += client.readString();
-  }
-
-  int newlineIndex = accumulatedData.indexOf('\r');
-  if (newlineIndex != -1) {
-    // Extract the message up to the newline character
-    received = accumulatedData.substring(0, newlineIndex);
-    // Remove the extracted message from accumulatedData
-    accumulatedData = accumulatedData.substring(newlineIndex + 1);
-
-    //String received = client.readStringUntil('\r');
-    //Serial.print("Server:");
-    //Serial.println(received);
-  }
+  //Serial.print("Server:"); Serial.println(received);
 
   client.flush();
   return received;

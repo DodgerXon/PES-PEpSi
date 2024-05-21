@@ -14,7 +14,7 @@ class LedRGB {
 public:
   LedRGB(int,int,int);
   ~LedRGB();
-  void zetAan();
+  void zetAan(int,int,int);
   void zetUit();
 
 private:

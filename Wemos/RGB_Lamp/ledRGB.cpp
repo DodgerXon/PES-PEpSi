@@ -5,7 +5,11 @@ LedRGB::LedRGB(int r, int g, int b ) : red(r), green(g), blue(b) {
 LedRGB::~LedRGB(){}
 
 
-void LedRGB::zetAan() {
+void LedRGB::zetAan(int r,int g,int b) {
+
+  red = r;
+  green = g;
+  blue = b;
 
   pinMode(ledPowerPin, HIGH);
 
@@ -17,9 +21,9 @@ void LedRGB::zetAan() {
     double i = 20.0;
 
     while ( i > 1.0 ) { // Smooth transition
-      analogWrite(ledR, red * 3 / i);
-      analogWrite(ledG, green * 3 / i);
-      analogWrite(ledB, blue * 3 / i);
+      analogWrite(ledR, red * 4 / i);
+      analogWrite(ledG, green * 4 / i);
+      analogWrite(ledB, blue * 4 / i);
       i -= 0.1;
     }
     ledTurnedOn = false;
