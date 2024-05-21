@@ -19,13 +19,11 @@
 const int DATA_PIN = D8; // DIN
 const int CLK_PIN = D5; // CLK
 const int CS_PIN = D7; // CS
+char buf[20] = {"Nog geen tekst"};
 
 WemosServer wServer;
-// Hardware SPI connection
-// MD_Parola P = MD_Parola(HARDWARE_TYPE, CS_PIN, MAX_DEVICES);
-// Arbitrary output pins
-MD_Parola P = MD_Parola(HARDWARE_TYPE, DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
 
+MD_Parola P = MD_Parola(HARDWARE_TYPE, DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
 void setup(void)
 {
   Serial.begin(9600);
@@ -36,15 +34,13 @@ void setup(void)
 
 void loop(void)
 {
-  char buf[20]; 
   if(wServer.startServer()) {
     String received = wServer.receivedMsg();
-    received.toCharArray(buf, received.length()); // Convert the string to a character array
+    received.toCharArray(buf, received.length());
     buf[received.length()] = '\0';
   }
 
   if (P.displayAnimate()) {
-    //er kunnen maximaal 12 characters in de buffer voordat hij dood gaat
     P.displayText(buf, PA_LEFT, 30, 0, PA_SCROLL_LEFT, PA_SCROLL_LEFT); // Use the character array
   }
 }
