@@ -48,7 +48,7 @@ void loop() {
 
   //Serial.print("main: "); Serial.println(buf);
 
-  sscanf(buf, "%*s %d %d %d", &red, &green, &blue);
+  sscanf(buf, "%d %d %d", &red, &green, &blue);
 
   sensorState = digitalRead(sensorPin);
 

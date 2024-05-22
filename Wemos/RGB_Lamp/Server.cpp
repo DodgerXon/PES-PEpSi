@@ -66,24 +66,26 @@ void WemosServer::startServer() {
     }
 
     // Wait until the client sends some data
-    Serial.println("new client");
+    //Serial.println("new client");
     while(!client.available()){
         delay(1);
     }
 }
 
 String WemosServer::receivedMsg() {
-
-    // Read the request
     String received = "";
-    if (client.available()) {
-        received = client.readStringUntil('\r');
-    } else {
-        return "";
+    char ch;
+    
+    // Read available bytes
+    while (client.available()) {
+        ch = client.read();
+        if (ch == '\r') {
+            break; // Stop reading at the delimiter
+        }
+        received += ch; // Append character to the result
     }
 
-  //Serial.print("Server:"); Serial.println(received);
+    client.flush(); // Optional, clears the input buffer
 
-  client.flush();
-  return received;
+    return received;
 }
