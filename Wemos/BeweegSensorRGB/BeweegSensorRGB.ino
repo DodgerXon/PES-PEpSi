@@ -5,7 +5,7 @@ using namespace std;
 WemosServer wServer;
 
 const int sensorPin = 5;  // D0
-const int boardLed = 2;     // D4
+const int boardLed = 2;   // D4
 
 int sensorState = 0;
 
@@ -34,10 +34,6 @@ void loop() {
   
   received.toCharArray(buf, received.length()+1);
 
-  //Serial.print("main: "); Serial.println(buf);
-
-  //sscanf(buf, "%d %d %d", &red, &green, &blue);
-
   sensorState = digitalRead(sensorPin);
 
   if (received == "status") {
@@ -54,7 +50,7 @@ void loop() {
     digitalWrite(boardLed, LOW);
   }
 
-  Serial.print("Sensor: "); Serial.println(sensorState);
+  //Serial.print("Sensor: "); Serial.println(sensorState);
 
   delay(10);
 }

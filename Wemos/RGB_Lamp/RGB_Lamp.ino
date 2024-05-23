@@ -6,11 +6,7 @@ using namespace std;
 WemosServer wServer;
 LedRGB ledRGB(0,0,0); // Warme witte kleur 255,100,20
 
-//const int ledPowerPin = 0;  // D3
-const int sensorPin = 5;  // D0
 const int boardLed = 2;     // D4
-
-int sensorState = 0;
 
 int red = 255;
 int green = 50;
@@ -30,11 +26,9 @@ void setup() {
 
   pinMode(ledPowerPin, INPUT);
   pinMode(ledPowerPin, LOW);
-  pinMode(sensorPin, INPUT_PULLUP);
-  //digitalWrite(boardLed, LOW);
+  digitalWrite(boardLed, LOW);
 
   wServer.verbindenWifi();
-
 }
 
 void loop() {
@@ -51,26 +45,20 @@ void loop() {
 
   sscanf(buf, "%d %d %d", &red, &green, &blue);
 
-  sensorState = digitalRead(sensorPin);
-
   if (teller > 400) {
     Serial.print(red); Serial.print("-");
     Serial.print(green); Serial.print("-");
-    Serial.print(blue); Serial.print(" ");
-
-    Serial.println(sensorState);
+    Serial.print(blue); Serial.println(" ");
 
     teller = 0;
   }
 
-  if (sensorState == 1) {
-    ledRGB.zetAan(red,green,blue);
-    //Serial.println("aan");
-    //delay(1000); // Delay hoe lang die aan moet blijven staan
-  } else {
-    ledRGB.zetUit();
-    //Serial.println("uit");
-  }
+
+  ledRGB.zetAan(red,green,blue);
+  //digitalWrite(boardLed, LOW);
+
+  //ledRGB.zetUit();
+  //Serial.println("uit");
 
   delay(10);
 

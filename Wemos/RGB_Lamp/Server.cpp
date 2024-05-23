@@ -38,7 +38,8 @@ void WemosServer::verbindenWifi() {
   Serial.println(ssid);
 
   WiFi.config(local_IP, gateway, subnet); // Zet een vast IP adres.
-  WiFi.begin(ssid, passwordInput(password));
+  WiFi.begin(ssid, "NSELabWiFi");
+  //WiFi.begin(ssid, passwordInput(password));
 
   while (WiFi.status() != WL_CONNECTED) {
       delay(200);

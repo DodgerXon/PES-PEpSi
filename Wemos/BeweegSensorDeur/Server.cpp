@@ -26,7 +26,7 @@ char* passwordInput(char* password) {
 
 void WemosServer::verbindenWifi() {
 
-  IPAddress local_IP(145, 52, 127, 211);
+  IPAddress local_IP(145, 52, 127, 206);
   IPAddress gateway(145, 52, 127, 1);   // Change to your network's gateway
   IPAddress subnet(255, 255, 255, 0);   // Change to your network's subnet mask
 
