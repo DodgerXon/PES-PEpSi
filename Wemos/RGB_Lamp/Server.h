@@ -12,6 +12,7 @@ public:
     ~WemosServer();
     void verbindenWifi();
     void startServer();
+    void sendMsg(String);
     String receivedMsg();
 
 private:

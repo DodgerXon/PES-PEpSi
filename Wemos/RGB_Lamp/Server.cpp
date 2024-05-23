@@ -72,6 +72,16 @@ void WemosServer::startServer() {
     }
 }
 
+void WemosServer::sendMsg(String data) {
+    if (client.connected()) {
+        // Using write() to send the string
+        client.write(data.c_str(), data.length());
+        Serial.println("Message sent: " + data);
+    } else {
+        Serial.println("Error: Client not connected");
+    }
+}
+
 String WemosServer::receivedMsg() {
     String received = "";
     char ch;

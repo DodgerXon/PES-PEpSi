@@ -44,6 +44,7 @@ void loop() {
 
   wServer.startServer();
   String received = wServer.receivedMsg(); // Deze functie veroorzaakt een delay
+  
   received.toCharArray(buf, received.length()+1);
 
   //Serial.print("main: "); Serial.println(buf);
