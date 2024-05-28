@@ -6,13 +6,14 @@ using namespace std;
 WemosServer wServer;
 LedRGB ledRGB(0,0,0); // Warme witte kleur 255,100,20
 
-const int boardLed = 2;     // D4
+const int boardLed = 2; // D4
 
 int red = 255;
 int green = 50;
 int blue = 32;
 
-int teller = 0;
+unsigned long previousMillis = 0;
+const long interval = 5000;  // Interval in milliseconds
 
 void setup() {
   Serial.begin(9600);
@@ -33,33 +34,23 @@ void setup() {
 
 void loop() {
 
-  teller++;
+  unsigned long currentMillis = millis();
   char buf[20];
 
   wServer.startServer();
-  String received = wServer.receivedMsg(); // Deze functie veroorzaakt een delay
+  String received = wServer.receivedMsg();
   
-  received.toCharArray(buf, received.length()+1);
+  received.toCharArray(buf, received.length()+1); // Zet het commando om naar een char array
 
-  //Serial.print("main: "); Serial.println(buf);
+  sscanf(buf, "%d %d %d", &red, &green, &blue); // Zet het commando om naar de kleur waardes
 
-  sscanf(buf, "%d %d %d", &red, &green, &blue);
-
-  if (teller > 400) {
-    Serial.print(red); Serial.print("-");
-    Serial.print(green); Serial.print("-");
-    Serial.print(blue); Serial.println(" ");
-
-    teller = 0;
+  // Checkt of de status van de beweegsenser aan is via de client PI.
+  if (received == "Aan") {
+      ledRGB.zetAan(red,green,blue);
+  } else {
+      if (currentMillis - previousMillis >= interval) {
+        ledRGB.zetUit();
+        previousMillis = currentMillis;
+      }
   }
-
-
-  ledRGB.zetAan(red,green,blue);
-  //digitalWrite(boardLed, LOW);
-
-  //ledRGB.zetUit();
-  //Serial.println("uit");
-
-  delay(10);
-
 }
