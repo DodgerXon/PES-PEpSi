@@ -9,8 +9,6 @@ const int boardLed = 2;   // D4
 
 int sensorState = 0;
 
-int teller = 0;
-
 void setup() {
   Serial.begin(9600);
   delay(10);
@@ -21,12 +19,10 @@ void setup() {
   digitalWrite(boardLed, LOW);
 
   wServer.verbindenWifi();
-
 }
 
 void loop() {
 
-  teller++;
   char buf[20];
 
   wServer.startServer();
@@ -49,8 +45,4 @@ void loop() {
   } else {
     digitalWrite(boardLed, LOW);
   }
-
-  //Serial.print("Sensor: "); Serial.println(sensorState);
-
-  delay(10);
 }
