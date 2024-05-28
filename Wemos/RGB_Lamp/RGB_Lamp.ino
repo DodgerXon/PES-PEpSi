@@ -15,6 +15,7 @@ int blue = 32;
 unsigned long previousMillis = 0;
 const long interval = 5000;  // Interval in milliseconds
 
+
 void setup() {
   Serial.begin(9600);
   delay(10);
@@ -31,6 +32,7 @@ void setup() {
 
   wServer.verbindenWifi();
 }
+
 
 void loop() {
 
