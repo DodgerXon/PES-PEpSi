@@ -26,7 +26,7 @@ char* passwordInput(char* password) {
 
 void WemosServer::verbindenWifi() {
 
-  IPAddress local_IP(145, 52, 127, 198);
+  IPAddress local_IP(145, 52, 127, 210);
   IPAddress gateway(145, 52, 127, 1);   // Change to your network's gateway
   IPAddress subnet(255, 255, 255, 0);   // Change to your network's subnet mask
 
@@ -38,8 +38,8 @@ void WemosServer::verbindenWifi() {
   Serial.println(ssid);
 
   WiFi.config(local_IP, gateway, subnet); // Zet een vast IP adres.
-  WiFi.begin(ssid, "NSELabWiFi");
   //WiFi.begin(ssid, passwordInput(password));
+  WiFi.begin(ssid, "NSELabWiFi");
 
   while (WiFi.status() != WL_CONNECTED) {
       delay(200);
@@ -57,15 +57,20 @@ void WemosServer::verbindenWifi() {
   Serial.println(WiFi.localIP());
 }
 
-bool WemosServer::startServer() {
+void WemosServer::startServer() {
+
   client = server.available();
 
     // Check if a client has connected
     if (!client) {
-        return false;
+        return;
     }
-    Serial.println("new client");
-    return true;
+
+    // Wait until the client sends some data
+    //Serial.println("new client");
+    while(!client.available()){
+        delay(1);
+    }
 }
 
 void WemosServer::sendMsg(String data) {

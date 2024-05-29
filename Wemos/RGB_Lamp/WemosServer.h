@@ -1,8 +1,7 @@
-#ifndef SERVER_H
-#define SERVER_H 
+#ifndef WEMOSSERVER_H
+#define WEMOSSERVER_H 
 
 #include <ESP8266WiFi.h>
-#include <time.h>
 
 using namespace std;
 

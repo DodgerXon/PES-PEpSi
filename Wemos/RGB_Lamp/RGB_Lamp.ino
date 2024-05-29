@@ -1,4 +1,4 @@
-#include "Server.h"
+#include "WemosServer.h"
 #include "LedRGB.h"
 
 using namespace std;
@@ -37,7 +37,7 @@ void setup() {
 void loop() {
 
   unsigned long currentMillis = millis();
-  char buf[20];
+  char buf[40];
 
   wServer.startServer();
   String received = wServer.receivedMsg();

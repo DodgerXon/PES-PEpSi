@@ -1,4 +1,4 @@
-#include "Server.h"
+#include "WemosServer.h"
 
 #define PORT 8080
 
@@ -26,7 +26,7 @@ char* passwordInput(char* password) {
 
 void WemosServer::verbindenWifi() {
 
-  IPAddress local_IP(145, 52, 127, 210);
+  IPAddress local_IP(145, 52, 127, 207);
   IPAddress gateway(145, 52, 127, 1);   // Change to your network's gateway
   IPAddress subnet(255, 255, 255, 0);   // Change to your network's subnet mask
 
@@ -38,8 +38,8 @@ void WemosServer::verbindenWifi() {
   Serial.println(ssid);
 
   WiFi.config(local_IP, gateway, subnet); // Zet een vast IP adres.
-  //WiFi.begin(ssid, passwordInput(password));
   WiFi.begin(ssid, "NSELabWiFi");
+  //WiFi.begin(ssid, passwordInput(password));
 
   while (WiFi.status() != WL_CONNECTED) {
       delay(200);

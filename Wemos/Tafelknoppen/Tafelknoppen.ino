@@ -26,25 +26,23 @@ void loop() {
     delay(10);
     if (buttonStatusT1 != pinValueT1) {
         buttonStatusT1 = pinValueT1;
-        // Serial.println("T1 " + buttonStatusT1);
+        Serial.println("T1 " + buttonStatusT1);
         if (buttonStatusT1 == HIGH) {
             if (wemos.startServer()) {
                 wemos.sendMsg("t1");
             }
         }
-    } 
-    else if (buttonStatusT2 != pinValueT2) {
+    } else if (buttonStatusT2 != pinValueT2) {
         buttonStatusT2 = pinValueT2;
-        // Serial.println("T2 " + buttonStatusT2);
+        Serial.println("T2 " + buttonStatusT2);
         if (buttonStatusT2 == HIGH) {
             if (wemos.startServer()) {
                 wemos.sendMsg("t2");
             }
         }
-    } 
-    else if (buttonStatusT3 != pinValueT3) {
+    } else if (buttonStatusT3 != pinValueT3) {
         buttonStatusT3 = pinValueT3;
-        // Serial.println("T3 " + buttonStatusT3);
+        Serial.println("T3 " + buttonStatusT3);
         if (buttonStatusT3 == HIGH) {
             if (wemos.startServer()) {
                 wemos.sendMsg("t3");

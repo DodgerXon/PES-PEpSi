@@ -2,6 +2,7 @@
 #define WEMOSSERVER_H 
 
 #include <ESP8266WiFi.h>
+#include <time.h>
 
 using namespace std;
 
@@ -10,11 +11,12 @@ public:
     WemosServer();
     ~WemosServer();
     void verbindenWifi();
-    bool startServer();
+    void startServer();
     void sendMsg(String);
     String receivedMsg();
 
 private:
 
 };
+
 #endif
