@@ -42,7 +42,7 @@ void loop() {
   wServer.startServer();
   String received = wServer.receivedMsg();
   
-  received.toCharArray(buf, received.length()+1); // Zet het commando om naar een char array
+  received.toCharArray(buf, received.length()+1); // Zet het commando om naar de char array buf
 
   sscanf(buf, "%d %d %d", &red, &green, &blue); // Zet het commando om naar de kleur waardes
 
