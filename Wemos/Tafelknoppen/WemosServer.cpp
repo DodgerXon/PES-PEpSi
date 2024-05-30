@@ -64,7 +64,6 @@ bool WemosServer::startServer() {
     if (!client) {
         return false;
     }
-    Serial.println("new client");
     return true;
 }
 
