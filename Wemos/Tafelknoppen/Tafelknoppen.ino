@@ -33,7 +33,7 @@ void loop() {
     if (buttonStatusT1 != pinValueT1) {
         buttonStatusT1 = pinValueT1;
         if (buttonStatusT1 == HIGH) {
-            Serial.print("T1 ");
+            Serial.println("T1 ");
             if (wemos.startServer()) {
                 wemos.sendMsg("t1");
             }
@@ -41,7 +41,7 @@ void loop() {
     } else if (buttonStatusT2 != pinValueT2) {
         buttonStatusT2 = pinValueT2;
         if (buttonStatusT2 == HIGH) {
-            Serial.print("T2 ");
+            Serial.println("T2 ");
             if (wemos.startServer()) {
                 wemos.sendMsg("t2");
             }
@@ -49,7 +49,7 @@ void loop() {
     } else if (buttonStatusT3 != pinValueT3) {
         buttonStatusT3 = pinValueT3;
         if (buttonStatusT3 == HIGH) {
-            Serial.print("T3 ");
+            Serial.println("T3 ");
             if (wemos.startServer()) {
                 wemos.sendMsg("t3");
             }
