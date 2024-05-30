@@ -10,6 +10,8 @@ int buttonStatusT1 = 0;
 int buttonStatusT2 = 0;
 int buttonStatusT3 = 0;
 
+bool buttonPressed = false;
+
 WemosServer wemos;
 
 void setup() {
@@ -46,13 +48,5 @@ void loop() {
                 wemos.sendMsg("t2");
             }
         }
-    } else if (buttonStatusT3 != pinValueT3) {
-        buttonStatusT3 = pinValueT3;
-        if (buttonStatusT3 == HIGH) {
-            Serial.println("T3 ");
-            if (wemos.startServer()) {
-                wemos.sendMsg("t3");
-            }
-        }
-    }
+    } 
 }
