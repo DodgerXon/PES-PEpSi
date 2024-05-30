@@ -28,18 +28,23 @@ void loop() {
 
       String received = wServer.receivedMsg();
 
-      if (received == "status") {
-        if (buttonPressed && !pinValueT1) {
-          wServer.sendMsg("aan");
-        } else if (!buttonPressed || !pinValueT1) {
-          wServer.sendMsg("uit");
-        }
-      } 
-
       if (received == "uit") {
         buttonPressed = false;
         Serial.println("Button uit");
       }
+      else
+      {
+        if (buttonPressed) 
+        {
+          wServer.sendMsg("aan");
+        } 
+        else 
+        {
+          wServer.sendMsg("uit");
+        }
+      }
+
+
     }
 
     if (buttonStatusT1 != pinValueT1) {
