@@ -1,6 +1,11 @@
-deur
-rgb 255 0 0
-ventilator uit
-temperatuur
-luchtvochtigheid
-lichtkrant testje
+deur dicht
+rgb 125 45 34
+lichtkrant kippensoep 7$
+beweging1 Uit
+beweging2 Uit
+t1 aan
+temperatuur 1.0
+luchtvochtigheid 
+ventilator false
+l1 aan
+co2 1.0

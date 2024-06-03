@@ -6,7 +6,7 @@
 
 void updateStatusFile(const std::string& key, const std::string& value) {
     const std::string filePath = "status";
-    std::vector<std::string> lines = {"rgb", "luchtvochtigheid", "temperatuur", "deur", "lichtkrant", "ventilator"};
+    std::vector<std::string> lines = {"deur", "rgb", "lichtkrant", "beweging1", "beweging2", "t1", "temperatuur", "luchtvochtigheid", "ventilator", "l1", "co2"};
     std::ifstream fileIn(filePath);
 
     if (fileIn.is_open()) {
@@ -65,8 +65,7 @@ std::string readStatusFile(const std::string& keyword) {
     return status;
 }
 
-int main()
-{
+int main(){
     while (1)
     {
         std::cout << "---------- NEW COMMAND ----------" << std::endl;
@@ -76,30 +75,66 @@ int main()
         std::getline(std::cin, input);
 
         std::istringstream iss(input);
-        std::string token;
-        iss >> token;
+        std::string key;
+        iss >> key;
 
-        if (token == "rgb")
+        if (key == "rgb")
         {
             updateStatusFile("rgb", input.substr(4));
         }
-        else if (token == "lichtkrant")
+        else if (key == "lichtkrant")
         {
             updateStatusFile("lichtkrant", input.substr(11));
         }
-		else if (token == "ventilator")
+        else if(key == "deur")
+        {
+            updateStatusFile("deur", input.substr(5));
+        }
+        else if(key == "ventilator")
         {
             updateStatusFile("ventilator", input.substr(11));
         }
-        else if(token == "lichtkrant?") 
+        else if(key=="t1")
         {
-			std::cout << readStatusFile("lichtkrant") << std::endl;
-		}
-		else if(token == "rgb?") 
+            updateStatusFile("t1", input.substr(3));
+        }
+        else if(key == "beweging1?")
+        {
+            std::cout << readStatusFile("beweging1") << std::endl;
+        }
+        else if(key == "beweging2?")
+        {
+            std::cout << readStatusFile("beweging2") << std::endl;
+        }
+		else if(key == "rgb?") 
         {
 			std::cout << readStatusFile("rgb") << std::endl;
 		}
-        else if (token == "info")
+        else if(key == "lichtkrant?") 
+        {
+			std::cout << readStatusFile("lichtkrant") << std::endl;
+		}
+        else if(key == "temperatuur?") 
+        {
+			std::cout << readStatusFile("temperatuur") << std::endl;
+		}
+        else if(key == "luchtvochtigheid?") 
+        {
+			std::cout << readStatusFile("luchtvochtigheid") << std::endl;
+		}
+        else if(key == "co2?") 
+        {
+			std::cout << readStatusFile("co2") << std::endl;
+		}
+        else if(key == "ventilator?") 
+        {
+			std::cout << readStatusFile("ventilator") << std::endl;
+		}
+            else if(key == "t1?") 
+        {
+			std::cout << readStatusFile("t1") << std::endl;
+		}
+        else if (key == "info")
         {
             std::cout << "---------- INFO ----------" << std::endl;
             std::cout << "rgb int int int (Sends RGB values to sfeerverlichting)" << std::endl;
@@ -110,5 +145,6 @@ int main()
             std::cout << "Invalid command. Sending to server." << std::endl;
         }
     }
+    
     return 0;
 }

@@ -1,0 +1,11 @@
+deur open
+rgb 255 0 0 
+lichtkrant test
+beweging1 true
+beweging2 false
+t1 uit
+temperatuur 24.0
+luchtvochtigheid 66.0
+ventilator false
+l1 uit
+co2 144.0
