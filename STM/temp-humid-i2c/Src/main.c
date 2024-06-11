@@ -365,18 +365,20 @@ static void MX_GPIO_Init(void)
 void readSensorData(void) {
 	char buf[50];
 	uint8_t data[6];
-	uint8_t sht3x_address = 0x44;
+	uint8_t sht3x_address = 0x44; //address van de sensor
 	uint8_t command[] = {0x2C, 0x06};
-
+	// Verzend het commando naar de SHT3x sensor om een meting te starten
 	HAL_I2C_Master_Transmit(&hi2c1, sht3x_address << 1, command, sizeof(command), HAL_MAX_DELAY);
 	HAL_Delay(20);
+	// Ontvang de metinggegevens van de SHT3x sensor
 	HAL_I2C_Master_Receive(&hi2c1, (sht3x_address << 1) | 0x01, data, sizeof(data), HAL_MAX_DELAY);
 
-	int16_t tempRaw = (data[0] << 8) | data[1];
-	temperature = -45 + 175 * ((float)tempRaw / 65535);
-	int16_t humRaw = (data[3] << 8) | data[4];
-	humidity = 100 * ((float)humRaw / 65535);
-
+	int16_t tempRaw = (data[0] << 8) | data[1];// Combineer de eerste twee bytes voor de ruwe temperatuur
+	temperature = -45 + 175 * ((float)tempRaw / 65535);// Bereken de temperatuur in graden Celsius
+	int16_t humRaw = (data[3] << 8) | data[4];// Combineer de vierde en vijfde byte voor de ruwe luchtvochtigheid
+	humidity = 100 * ((float)humRaw / 65535);// Bereken de luchtvochtigheid in procenten
+	
+	// Formatteer de temperatuur en luchtvochtigheid in een string en verzend deze via UART
 	sprintf(buf, "%.1lfC %.1lf \r\n", temperature, humidity);
 	HAL_UART_Transmit(&huart2, (uint8_t*)buf, strlen(buf), 100);
 }
