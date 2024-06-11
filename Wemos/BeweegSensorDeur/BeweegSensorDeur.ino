@@ -31,7 +31,7 @@ void loop() {
   received.toCharArray(buf, received.length()+1);
 
   sensorState = digitalRead(sensorPin);
-//stuurt de waarde van de bewegingssensor terug aan de pie om in het document aan te passen
+//stuurt de waarde van de bewegingssensor terug aan de pi om in het document aan te passen
   if (received == "status") { 
     if (sensorState) {
       wServer.sendMsg("Aan");
