@@ -6,16 +6,21 @@ int main() {
     server.Bind(8080);
     I2C_COM i2c;
     
+    //oneindige loop
     while (true) {
+        //wacht op nieuwe client connection
         server.Listen();
-        server.Accept(); // Todo: handle return value
+        server.Accept() 
+        
         std::cout << "Client connected" << std::endl;
         
+        //sla bericht van client op in receivedText
         std::string receiveText = server.Receive();
         std::cout << "Received: " << receiveText << std::endl;
         
         std::string messageToClient;
         
+        //bepaal wat terug naar de client gestuurd moet worden
         if (receiveText == "temp") {
             messageToClient = i2c.requestDataFromSlave(0x10, 0x01);
         } else if (receiveText == "hum") {
@@ -31,9 +36,10 @@ int main() {
             continue;
         }
         
+        //stuur data terug naar client
         server.Send(messageToClient);
         std::cout << "Sent: " << messageToClient << std::endl;
-       }
+    }
     
     server.Close(); // Close the server socket
     return 0;
