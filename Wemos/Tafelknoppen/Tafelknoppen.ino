@@ -1,8 +1,8 @@
 #include "WemosServer.h"
 
-const int t1 = D1;
+const int t1 = D1; //Pin voor knop T1
 
-const int boardLed = 2; // D4
+const int boardLed = 2; // Pin voor de ingebouwde led (D4)
 
 int buttonStatusT1 = 0;
 
@@ -22,11 +22,11 @@ void setup() {
 
 void loop() {
 
-    int pinValueT1 = digitalRead(t1);
+    int pinValueT1 = digitalRead(t1); //Lees waarde van button 1
 
     if (wServer.startServer()) {
 
-      String received = wServer.receivedMsg();
+      String received = wServer.receivedMsg(); //Ontvangen bericht van de server
 
       if (received == "uit") {
         buttonPressed = false;
@@ -36,7 +36,7 @@ void loop() {
       {
         if (buttonPressed) 
         {
-          wServer.sendMsg("aan");
+          wServer.sendMsg("aan"); //Verstuurt 'aan' als op de knop gedrukt is.
         } 
         else 
         {
@@ -47,10 +47,10 @@ void loop() {
 
     }
 
-    if (buttonStatusT1 != pinValueT1) {
-        buttonStatusT1 = pinValueT1;
-        if (buttonStatusT1 == HIGH) {
-            buttonPressed = true;
+    if (buttonStatusT1 != pinValueT1) { //Controleert of de status van de knop is veranderd.
+        buttonStatusT1 = pinValueT1; // Update de knop status
+        if (buttonStatusT1 == HIGH) { 
+            buttonPressed = true; //Zet variable op true.
             Serial.println("T1 ");
         }
     } 
