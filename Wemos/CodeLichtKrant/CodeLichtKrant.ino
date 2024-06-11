@@ -35,7 +35,7 @@ void loop(void)
       wServer.sendMsg(received);
     }
   }
-
+// Tekent de 'buf' op de lichtkrant. Dit blijft non stop doorloopen.
   if (P.displayAnimate()) {
     P.displayText(buf, PA_LEFT, 30, 0, PA_SCROLL_LEFT, PA_SCROLL_LEFT);
   }
