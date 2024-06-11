@@ -323,7 +323,7 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
-    if (hi2c->Instance == I2C1)
+    if (hi2c->Instance == I2C1) //Controle waar de interupt vandaan komt.
     {
     	uint8_t request = RX_Buffer[0];
 
@@ -331,12 +331,12 @@ void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
     	{
   	    case 0x01:
   	    {
-  	    	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_4);
+  	    	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_4); //Veranderd de status van pin 4
   	    	break;
   	    }
   	    case 0x02:
   	    {
-  	    	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+  	    	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5); // Veranderd de status van pin 5
   	    	break;
   	    }
   	    case 0x03:
