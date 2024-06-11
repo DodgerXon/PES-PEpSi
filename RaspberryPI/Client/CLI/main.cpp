@@ -4,32 +4,52 @@
 #include <vector>
 #include <iostream>
 
+//todo: StatusFile class aanmaken in plaats van deze losse functies
+
 void updateStatusFile(const std::string& key, const std::string& value) {
     const std::string filePath = "status";
     std::vector<std::string> lines = {"deur", "rgb", "lichtkrant", "beweging1", "beweging2", "t1", "temperatuur", "luchtvochtigheid", "ventilator", "l1", "co2"};
-    std::ifstream fileIn(filePath);
+    std::ifstream fileIn(filePath); //open het statusfile voor reading
 
-    if (fileIn.is_open()) {
+    //als hij geopent is
+    if (fileIn.is_open()) 
+    {
         std::string line;
         int i = 0;
-        while (std::getline(fileIn, line) && i < lines.size()) {
+
+        //loop door alle lines in het bestand heen en zet de regels in de lines vector 
+        //dit doen we zodat de huidige data bestand hetzelfde blijft
+        while (std::getline(fileIn, line) && i < lines.size()) 
+        {
             lines[i++] = line;
         }
+        
+        //sluit bestand
         fileIn.close();
     }
 
-    for (std::string& line : lines) {
+    //loop door alle regels
+    for (std::string& line : lines) 
+    {
+        //als de key op die regel staat zet de nieuwe waarde in de lines vector
         if (line.find(key) == 0) {
             line = key + " " + value;
             break;
         }
     }
 
+    //open de statusfile voor writing
     std::ofstream fileOut(filePath);
+
+    //als hij geopent is
     if (fileOut.is_open()) {
+
+        //zet elke line van de vector in de file
         for (const std::string& line : lines) {
             fileOut << line << std::endl;
         }
+
+        //close de file
         fileOut.close();
     }
 }
@@ -42,7 +62,8 @@ std::string readStatusFile(const std::string& keyword) {
     //dit moet omdat meerdere programma's tegelijk bij het bestand moeten
     do
     {
-      fileIn.open(filePath);
+        fileIn.open(filePath);
+
     } while (!fileIn.is_open());
 
     std::string line;
@@ -65,19 +86,23 @@ std::string readStatusFile(const std::string& keyword) {
     return status;
 }
 
-int main(){
+int main()
+{
     while (1)
     {
         std::cout << "---------- NEW COMMAND ----------" << std::endl;
         std::cout << "Type 'info' for command information." << std::endl;
 
+        //pak gebruiker input
         std::string input;
         std::getline(std::cin, input);
 
+        //pak eerste woord uit input en zet het in key
         std::istringstream iss(input);
         std::string key;
         iss >> key;
 
+        //check met key welk command is ingevoerd  
         if (key == "rgb")
         {
             updateStatusFile("rgb", input.substr(4));
@@ -161,7 +186,7 @@ int main(){
         }
         else
         {
-            std::cout << "Invalid command. Sending to server." << std::endl;
+            std::cout << "Invalid command..." << std::endl;
         }
     }
     
