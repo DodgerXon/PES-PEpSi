@@ -72,17 +72,17 @@ int main()
 	Client client;
 
     std::map<std::string, std::string> components;
-    components.emplace("lichtkrant", "145.52.127.209");
-    components.emplace("beweging1", "145.52.127.210");
-    components.emplace("rgb", "145.52.127.207");
-    components.emplace("deur", "145.52.127.242");
-    components.emplace("beweging2", "145.52.127.199");
-    components.emplace("t1", "145.52.127.198");
-    components.emplace("temperatuur", "145.52.127.190");
-    components.emplace("luchtvochtigheid", "145.52.127.190");
-    components.emplace("co2", "145.52.127.190");
-    components.emplace("ventilator", "145.52.127.190");
-    components.emplace("l1", "145.52.127.190");
+    components.emplace("beweging1", "10.42.0.10");
+    components.emplace("lichtkrant", "10.42.0.11");
+    components.emplace("rgb", "10.42.0.12");
+    components.emplace("deur", "10.42.0.13");
+    components.emplace("beweging2", "10.42.0.14");
+    components.emplace("t1", "10.42.0.15");
+    components.emplace("temperatuur", "10.42.0.16");
+    components.emplace("luchtvochtigheid", "10.42.0.16");
+    components.emplace("co2", "10.42.0.16");
+    components.emplace("ventilator", "10.42.0.16");
+    components.emplace("l1", "10.42.0.16");
 
     for (const auto& component : components) 
     {
@@ -104,7 +104,7 @@ int main()
         {
             std::string name = component.first;
             //als component zit aan server pi
-            if(component.second == "145.52.127.190")
+            if(component.second == "10.42.0.16")
             {
                 if(name == "l1")
                 {
@@ -123,7 +123,7 @@ int main()
                     client.Close();
                     
                     float temp = std::stof(readStatusFile(component.first));
-                    if(temp > 30.0f)
+                    if(temp > 26.0f)
                     {
                         client.Connect(component.second, 8080);
                         client.Send("ventilator true");
