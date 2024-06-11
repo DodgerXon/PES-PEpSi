@@ -1,4 +1,4 @@
-#include "WemosServer.h"
+#include "Server.h"
 #include "LedRGB.h"
 
 using namespace std;
@@ -6,15 +6,17 @@ using namespace std;
 WemosServer wServer;
 LedRGB ledRGB(0,0,0); // Warme witte kleur 255,100,20
 
-const int boardLed = 2; // D4
+//const int ledPowerPin = 0;  // D3
+const int sensorPin = 5;  // D0
+const int boardLed = 2;     // D4
+
+int sensorState = 0;
 
 int red = 255;
 int green = 50;
 int blue = 32;
 
-unsigned long previousMillis = 0;
-const long interval = 5000;  // Interval in milliseconds
-
+int teller = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -28,31 +30,48 @@ void setup() {
 
   pinMode(ledPowerPin, INPUT);
   pinMode(ledPowerPin, LOW);
-  digitalWrite(boardLed, LOW);
+  pinMode(sensorPin, INPUT_PULLUP);
+  //digitalWrite(boardLed, LOW);
 
   wServer.verbindenWifi();
-}
 
+}
 
 void loop() {
 
-  unsigned long currentMillis = millis();
-  char buf[40];
+  teller++;
+  char buf[20];
 
   wServer.startServer();
-  String received = wServer.receivedMsg();
+  String received = wServer.receivedMsg(); // Deze functie veroorzaakt een delay
   
-  received.toCharArray(buf, received.length()+1); // Zet het commando om naar de char array buf
+  received.toCharArray(buf, received.length()+1);
 
-  sscanf(buf, "%d %d %d", &red, &green, &blue); // Zet het commando om naar de kleur waardes
+  //Serial.print("main: "); Serial.println(buf);
 
-  // Checkt of de status van de beweegsenser aan is via de client PI.
-  if (received == "Aan") {
-      ledRGB.zetAan(red,green,blue);
-  } else {
-      if (currentMillis - previousMillis >= interval) {
-        ledRGB.zetUit();
-        previousMillis = currentMillis;
-      }
+  sscanf(buf, "%d %d %d", &red, &green, &blue);
+
+  sensorState = digitalRead(sensorPin);
+
+  if (teller > 400) {
+    Serial.print(red); Serial.print("-");
+    Serial.print(green); Serial.print("-");
+    Serial.print(blue); Serial.print(" ");
+
+    Serial.println(sensorState);
+
+    teller = 0;
   }
+
+  if (sensorState == 1) {
+    ledRGB.zetAan(red,green,blue);
+    //Serial.println("aan");
+    //delay(1000); // Delay hoe lang die aan moet blijven staan
+  } else {
+    ledRGB.zetUit();
+    //Serial.println("uit");
+  }
+
+  delay(10);
+
 }
