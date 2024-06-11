@@ -26,20 +26,20 @@ void loop() {
   char buf[20];
 
   wServer.startServer();
-  String received = wServer.receivedMsg(); // Deze functie veroorzaakt een delay
+  String received = wServer.receivedMsg(); //Leest het binnen gekomen bericht
   
   received.toCharArray(buf, received.length()+1);
 
   sensorState = digitalRead(sensorPin);
-
-  if (received == "status") {
+//stuurt de waarde van de bewegingssensor terug aan de pie om in het document aan te passen
+  if (received == "status") { 
     if (sensorState) {
       wServer.sendMsg("Aan");
     } else {
       wServer.sendMsg("Uit");
     }
   }
-
+// Zet de pin op de Wemos aan of uit aan de hand van of er beweging is gedetecteerd
   if (sensorState) {
     digitalWrite(boardLed, HIGH);
   } else {
