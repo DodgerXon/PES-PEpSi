@@ -98,11 +98,11 @@ int main(){
         {
             updateStatusFile("t1", input.substr(3));
         }
-        else if(key == "beweging1?")
+        else if(key == "bewegingrgb?")
         {
             std::cout << readStatusFile("beweging1") << std::endl;
         }
-        else if(key == "beweging2?")
+        else if(key == "bewegingdeur?")
         {
             std::cout << readStatusFile("beweging2") << std::endl;
         }
@@ -130,15 +130,34 @@ int main(){
         {
 			std::cout << readStatusFile("ventilator") << std::endl;
 		}
-            else if(key == "t1?") 
+        else if(key == "t1?") 
         {
 			std::cout << readStatusFile("t1") << std::endl;
 		}
+        else if(key == "l1?") 
+        {
+			std::cout << readStatusFile("l1") << std::endl;
+		}
         else if (key == "info")
         {
-            std::cout << "---------- INFO ----------" << std::endl;
-            std::cout << "rgb int int int (Sends RGB values to sfeerverlichting)" << std::endl;
-            std::cout << "lichtkrant string (Sends text to lichtkrant)" << std::endl;
+            std::cout << "---------- ZET DATA ----------" << std::endl;
+            std::cout << "rgb int int int - Zet de RGB verlichting (waarde 0 tot 255)" << std::endl;
+            std::cout << "lichtkrant string - Zet de RGB verlichting (lengte tekst tot 20 karakters)" << std::endl;
+            std::cout << "deur string - Open of sluit de deur (waarde open of dicht)" << std::endl;
+            std::cout << "ventilator bool - Zet de ventilator aan of uit (waarde true of false)" << std::endl;
+            std::cout << "t1 bool - Zet de tafelknop uit (waarde true of false)" << std::endl;
+            std::cout << "---------- VRAAG DATA ----------" << std::endl;
+            std::cout << "lichtkrant? - Geeft de waarde van de lichtkrant terug" << std::endl;
+            std::cout << "rgb? - Geeft waarde de van de RGB verlichting terug" << std::endl;
+            std::cout << "bewegingrgb? - Geeft de waarde van de lamp sensor terug" << std::endl;
+            std::cout << "bewegingdeur? - Geeft de waarde van de deur sensor terug" << std::endl;
+            std::cout << "t1? - Geeft de waarde van tafel 1 bestelknop terug" << std::endl;
+            std::cout << "temperatuur? - Geeft de waarde van de temperatuur terug" << std::endl;
+            std::cout << "luchtvochtigheid? - Geeft de waarde van de luchtvochtigheid terug" << std::endl;
+            std::cout << "co2? - Geeft de waarde van het co2 gehalte terug" << std::endl;
+            std::cout << "ventilator? - Geeft de waarde van de ventilator terug" << std::endl;
+            std::cout << "l1? - Geeft de waarde van de lamp gekoppeld aan tafel 1 terug" << std::endl;
+           
         }
         else
         {
