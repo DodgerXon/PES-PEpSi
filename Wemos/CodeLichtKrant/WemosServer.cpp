@@ -25,12 +25,12 @@ char* passwordInput(char* password) {
 }
 
 void WemosServer::verbindenWifi() {
-  IPAddress local_IP(145, 52, 127, 209);
-  IPAddress gateway(145, 52, 127, 1);   // Change to your network's gateway
+  IPAddress local_IP(10, 42, 0, 11);
+  IPAddress gateway(0, 0, 0, 0);   // Change to your network's gateway
   IPAddress subnet(255, 255, 255, 0);   // Change to your network's subnet mask
 
-  const char* ssid = "NSELab";
-  const char* password = {"NSELabWiFi"};
+  const char* ssid = "pepsi_wifi";
+  char password[20] = {"pepsi123"};
 
   // Connect to WiFi network
   Serial.print("Connecting to ");

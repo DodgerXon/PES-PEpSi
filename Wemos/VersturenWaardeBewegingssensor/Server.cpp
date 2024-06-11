@@ -24,29 +24,36 @@ WemosServer::WemosServer() {}
 // }
 
 void WemosServer::verbindenWifi() {
-  const char* ssid = "NSELab";
-  char password[20] = {"NSELab"};
+
+  IPAddress local_IP(10, 42, 0, 11);
+  IPAddress gateway(0, 0, 0, 0);   // Change to your network's gateway
+  IPAddress subnet(255, 255, 255, 0);   // Change to your network's subnet mask
+
+  const char* ssid = "pepsi_wifi";
+  char password[20] = {"pepsi123"};
 
   // Connect to WiFi network
-    Serial.print("Connecting to ");
-    Serial.println(ssid);
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
 
-    WiFi.begin(ssid, "NSELabWiFi");
+  WiFi.config(local_IP, gateway, subnet); // Zet een vast IP adres.
+  //WiFi.begin(ssid, passwordInput(password));
+  WiFi.begin(ssid, "pepsi123");
 
-    while (WiFi.status() != WL_CONNECTED) {
-        delay(200);
-        Serial.print(".");
-    }
-    Serial.println("");
-    Serial.println("WiFi connected");
+  while (WiFi.status() != WL_CONNECTED) {
+      delay(200);
+      Serial.print(".");
+  }
+  Serial.println("");
+  Serial.println("WiFi connected");
 
-    // Start the server    server.begin();
-    Serial.println("Server started");
+  // Start the server
+  server.begin();
+  Serial.println("Server started");
 
-
-    Serial.print("IP address: ");
-    Serial.println(WiFi.localIP());
-
+  // Print the ESP8266's IP address
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
 }
 
 bool WemosServer::startServer() {

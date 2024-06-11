@@ -26,19 +26,19 @@ WemosServer::WemosServer() {}
 
 void WemosServer::verbindenWifi() {
 
-  IPAddress local_ip(145, 52, 127, 242);
-  IPAddress gateway(145, 52, 127, 1);
-  IPAddress subnet(255, 255, 255, 0);
+  IPAddress local_IP(10, 42, 0, 13);
+  IPAddress gateway(0, 0, 0, 0);   // Change to your network's gateway
+  IPAddress subnet(255, 255, 255, 0);   // Change to your network's subnet mask
 
-  const char* ssid = "NSELab";
-  char password[20] = {"NSELab"};
+  const char* ssid = "pepsi_wifi";
+  char password[20] = {"pepsi123"};
 
   // Connect to WiFi network
     Serial.print("Connecting to ");
     Serial.println(ssid);
 
-    WiFi.config(local_ip, gateway, subnet);
-    WiFi.begin(ssid, "NSELabWiFi");
+    WiFi.config(local_IP, gateway, subnet);
+    WiFi.begin(ssid, password);
 
     while (WiFi.status() != WL_CONNECTED) {
         delay(200);
